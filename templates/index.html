@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot UI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .chatbox {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+        .message {
+            margin: 10px 0;
+        }
+        .bot {
+            color: blue;
+        }
+        .user {
+            color: green;
+            text-align: right;
+        }
+        .input-area {
+            display: flex;
+            margin-top: 20px;
+        }
+        .input-area input {
+            flex: 1;
+            padding: 10px;
+            font-size: 16px;
+        }
+        .input-area button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-left: 5px;
+            border: none;
+            cursor: pointer;
+        }
+        .send-button {
+            background-color: #007bff;
+            color: white;
+        }
+        .end-button {
+            background-color: red;
+            color: white;
+        }
+        .disabled {
+            background-color: #ccc;
+            pointer-events: none;
+        }
+        .chart-container {
+            max-width: 600px;
+            margin: 20px auto;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="chatbox">
+        <div id="chat-history">
+            <!-- Chat history will appear here -->
+        </div>
+        <div class="input-area">
+            <input type="text" id="user-input" placeholder="Type your message here..." />
+            <button class="send-button" onclick="sendMessage()">Send</button>
+            <button class="end-button" onclick="endChat()">End Chat</button>
+        </div>
+    </div>
+    <div id="total-queries">
+        Total Queries: 0
+    </div>
+    <div class="chart-container">
+        <canvas id="queryChart"></canvas>
+        <canvas id="topicChart"></canvas>
+    </div>
+    <script>
+        const queryChartCtx = document.getElementById('queryChart').getContext('2d');
+        const topicChartCtx = document.getElementById('topicChart').getContext('2d');
+
+        const queryChart = new Chart(queryChartCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Chitchat', 'Non-Chitchat'],
+                datasets: [{
+                    label: 'Query Count',
+                    data: [0, 0],
+                    backgroundColor: ['#007bff', '#dc3545']
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: { y: { beginAtZero: true } }
+            }
+        });
+
+        const topicChart = new Chart(topicChartCtx, {
+            type: 'pie',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Topics',
+                    data: [],
+                    backgroundColor: []
+                }]
+            },
+            options: { responsive: true }
+        });
+
+        function updateStats() {
+            fetch("/stats")
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("total-queries").textContent = `Total Queries: ${data.query_count}`;
+                    queryChart.data.datasets[0].data = [data.chitchat_count, data.non_chitchat_count];
+                    queryChart.update();
+
+                    const topicLabels = Object.keys(data.topic_counts);
+                    const topicData = Object.values(data.topic_counts);
+
+                    topicChart.data.labels = topicLabels;
+                    topicChart.data.datasets[0].data = topicData;
+                    topicChart.data.datasets[0].backgroundColor = topicLabels.map(() =>
+                        `hsl(${Math.random() * 360}, 70%, 70%)`
+                    );
+                    topicChart.update();
+                });
+        }
+
+        function sendMessage() {
+            const userInput = document.getElementById("user-input").value;
+            const chatHistory = document.getElementById("chat-history");
+
+            const userMessage = document.createElement("div");
+            userMessage.className = "message user";
+            userMessage.textContent = "You: " + userInput;
+            chatHistory.appendChild(userMessage);
+
+            fetch("/chat", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: "user_input=" + encodeURIComponent(userInput)
+            })
+            .then(response => response.json())
+            .then(data => {
+                const botMessage = document.createElement("div");
+                botMessage.className = "message bot";
+                botMessage.textContent = "Bot: " + data.response;
+                chatHistory.appendChild(botMessage);
+
+                document.getElementById("user-input").value = "";
+                updateStats();
+            });
+        }
+
+        function endChat() {
+            const chatHistory = document.getElementById("chat-history");
+            const goodbyeMessage = document.createElement("div");
+            goodbyeMessage.className = "message bot";
+            goodbyeMessage.textContent = "Bot: Thank you for chatting! Goodbye!";
+            chatHistory.appendChild(goodbyeMessage);
+
+            document.getElementById("user-input").disabled = true;
+            document.querySelector(".send-button").classList.add("disabled");
+            document.querySelector(".end-button").classList.add("disabled");
+            updateStats();
+        }
+
+        document.addEventListener("DOMContentLoaded", () => updateStats());
+    </script>
+</body>
+</html>
