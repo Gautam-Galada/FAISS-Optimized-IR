@@ -55,12 +55,5 @@ The Flask-based interface integrates FAISS for retrieval and Ollama’s Llama 3 
   - FAISS Index Creation: ~22.4 minutes (1344 seconds)  
   - Average Query Response Time: ~8 seconds  
 
----
 
-## **Work Breakdown**
-
-| **Teammate**     | **Contribution**                                                     |
-|-------------------|---------------------------------------------------------------------|
-| **Anany Singh**   | Scraping Wikipedia, dataset structuring, and data cleaning.         |
-| **Gautam Galada** | Embedding generation, FAISS indexing, and Llama 3 integration.      |
-| **Nikunj Sujit**  | Flask app development, query classification, and topic analytics.   |
+[<img src="https://github.com/{{ contributor }}.png" width="60px;"/><br /><sub><ahref="https://github.com/{{ contributor }}">{{ contributor }}</a></sub>](https://github.com/{{ contributor }}/{{ repository }}
