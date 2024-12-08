@@ -56,4 +56,10 @@ The Flask-based interface integrates FAISS for retrieval and Ollama’s Llama 3 
   - Average Query Response Time: ~8 seconds  
 
 
-[![](https://opencollective.com/html-react-parser/contributors.svg?width=890&button=false)](https://github.com/remarkablemark/html-react-parser/graphs/contributors)
+---
+## Contributors
+
+- [Gautam Galada](https://github.com/Gautam-Galada)
+- [Anany Singh](https://github.com/Anany25)
+- [Nikunj Sujit](https://github.com/nikunjsuj13)
+
