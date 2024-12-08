@@ -64,12 +64,3 @@ The Flask-based interface integrates FAISS for retrieval and Ollama’s Llama 3 
 | **Anany Singh**   | Scraping Wikipedia, dataset structuring, and data cleaning.         |
 | **Gautam Galada** | Embedding generation, FAISS indexing, and Llama 3 integration.      |
 | **Nikunj Sujit**  | Flask app development, query classification, and topic analytics.   |
-
----
-
-## **How to Run**
-
-### **1. Clone the Repository**
-```bash
-git clone https://github.com/<your-repo-name>/CSES35_IR.git
-cd CSES35_IR
