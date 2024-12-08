@@ -14,6 +14,9 @@ The motivation for using **FAISS** (Facebook AI Similarity Search) lies in its a
 
 ## **Methodology**
 
+![aviato](https://github.com/user-attachments/assets/7333dccf-4629-4570-834f-188e1d8d525f)
+
+
 ### **1. Scraping Wikipedia**
 The system starts with data acquisition by scraping over **5000 articles per topic** from Wikipedia across domains like **Health**, **Environment**, **Technology**, **Economy**, and others. Subtopics were identified to ensure comprehensive coverage, making the scraping process robust and domain-specific.
 
