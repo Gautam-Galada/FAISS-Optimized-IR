@@ -14,7 +14,9 @@ The motivation for using **FAISS** (Facebook AI Similarity Search) lies in its a
 
 ## **Methodology**
 
-![aviato](https://github.com/user-attachments/assets/7333dccf-4629-4570-834f-188e1d8d525f)
+<div align="center">
+    <img src="https://github.com/user-attachments/assets/7333dccf-4629-4570-834f-188e1d8d525f" alt="aviato" />
+</div>
 
 
 ### **1. Scraping Wikipedia**
