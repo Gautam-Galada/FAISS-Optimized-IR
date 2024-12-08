@@ -1,0 +1,10 @@
+langchain
+langchain-huggingface
+transformers
+torch
+tqdm
+bs4
+psutil
+pickle5
+faiss-cpu
+jq

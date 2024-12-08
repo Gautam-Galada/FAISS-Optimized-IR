@@ -1,0 +1,2 @@
+cleaned_wiki_articles.json   -> JSON file with cleaned data
+split_documents.pkl -> Pickle file for split document chunks

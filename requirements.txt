@@ -1,0 +1,7 @@
+flask
+langchain
+langchain-huggingface
+transformers
+torch
+tqdm
+faiss-cpu
